@@ -23,9 +23,11 @@ public class Gatito {
     public String genero;
     @Column(name = "nacimiento")
     public Integer nacimiento;
+    @ElementCollection
     @CollectionTable(name = "gatito_seriesfav", joinColumns = @JoinColumn(name = "gatito_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     public List<String> seriesfav = new ArrayList<>();
+    @ElementCollection
     @CollectionTable(name = "gatito_cancionesfav", joinColumns = @JoinColumn(name = "gatito_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     public List<String> cancionesfav = new ArrayList<>();}
