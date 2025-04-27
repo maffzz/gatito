@@ -25,9 +25,6 @@ public class Gatito {
     @Column(name = "genero")
     public String genero;
 
-    @Column(name = "nacimiento")
-    public Integer nacimiento;
-
     @ElementCollection
     @CollectionTable(name = "gatito_seriesfav", joinColumns = @JoinColumn(name = "gatito_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

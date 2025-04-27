@@ -1,6 +1,8 @@
 
 package com.example.gatito.gatito;
 
+import com.example.gatito.gatito.dto.CreateGatitoDTO;
+import com.example.gatito.gatito.dto.UpdateGatitoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,19 +19,21 @@ public class GatitoService {
     public List<Gatito> getGatitos() {
         return gatitoRepository.findAll();}
 
-    public String createGatito(Gatito gatito) {
+    public String createGatito(CreateGatitoDTO dto) {
+        Gatito gatito = new Gatito();
+        gatito.setNombre(dto.getNombre());
+        gatito.setColor(dto.getColor());
+        gatito.setGenero(dto.getGenero());
         gatitoRepository.save(gatito);
         return "gatito creado exitosamente";}
 
-    public String updateGatito(Long Id, Gatito gatitoActu) {
-        Gatito gatitoEx = gatitoRepository.findById(Id).orElseThrow(
+    public String updateGatito(Long Id, UpdateGatitoDTO dtoActu) {
+        Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
-        gatitoEx.setNombre(gatitoActu.getNombre());
-        gatitoEx.setColor(gatitoActu.getColor());
-        gatitoEx.setGenero(gatitoActu.getGenero());
-        gatitoEx.setNacimiento(gatitoEx.getNacimiento());
-        gatitoRepository.save(gatitoEx);
+                HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
+        gatito.setNombre(dtoActu.getNombre());
+        gatito.setColor(dtoActu.getColor());
+        gatitoRepository.save(gatito);
         return "gatito actualizado exitosamente";}
 
     public String deleteGatito(Long id) {
@@ -39,12 +43,12 @@ public class GatitoService {
             return "gatito eliminado exitosamente";}
         else {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + id);}}
+                    HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + id);}}
 
     public Gatito getGatitoById(Long Id) {
         return gatitoRepository.findById(Id).orElseThrow(
                 () -> new RuntimeException(
-                "no se encontró ningún gatito con el ID " + Id));}
+                "no se encontró al gatito con el ID " + Id));}
 
     public List<Gatito> getGatitoByNombre(String nombre) {
         return gatitoRepository.findByNombre(nombre);}
@@ -55,49 +59,46 @@ public class GatitoService {
     public List<Gatito> getGatitoByGenero(String genero) {
         return gatitoRepository.findByGenero(genero);}
 
-    public List<Gatito> getGatitoByNacimiento(Integer nacimiento) {
-        return gatitoRepository.findByNacimiento(nacimiento);}
-
     public List<String> getSeries(Long Id) {
         Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
+                        HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
         return gatito.getSeriesfav();}
 
     public List<String> getCanciones(Long Id) {
         Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
+                        HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
         return gatito.getCancionesfav();}
 
     public String agregarSerie(Long Id, String newSerie) {
         Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
+                        HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
         gatito.getSeriesfav().add(newSerie);
         gatitoRepository.save(gatito);
-        return "serie agregada a gatito con ID " + Id + " exitosamente";}
+        return "serie agregada al gatito con ID " + Id + " exitosamente";}
 
     public String eliminarSerie(Long Id, String noSerie) {
         Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
+                        HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
         gatito.getSeriesfav().remove(noSerie);
         gatitoRepository.save(gatito);
-        return "serie eliminada a gatito con ID " + Id + " exitosamente";}
+        return "serie eliminada para el gatito con ID " + Id + " exitosamente";}
 
     public String agregarCancion(Long Id, String newCancion) {
         Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
+                        HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
         gatito.getCancionesfav().add(newCancion);
         gatitoRepository.save(gatito);
-        return "cancion agregada a gatito con ID " + Id + " exitosamente";}
+        return "cancion agregada al gatito con ID " + Id + " exitosamente";}
 
     public String eliminarCancion(Long Id, String noCancion) {
         Gatito gatito = gatitoRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "gatito no encontrado con ID " + Id));
+                        HttpStatus.NOT_FOUND, "no se encontró al gatito con el ID " + Id));
         gatito.getCancionesfav().remove(noCancion);
         gatitoRepository.save(gatito);
-        return "cancion eliminada a gatito con ID " + Id + " exitosamente";}}
+        return "cancion eliminada para el gatito con ID " + Id + " exitosamente";}}
