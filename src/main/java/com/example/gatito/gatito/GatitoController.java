@@ -60,7 +60,7 @@ public class GatitoController {
     public ResponseEntity<String> agregarSerie(@Valid @PathVariable Long Id, @RequestBody String newSerie) {
         return ResponseEntity.ok(gatitoService.agregarSerie(Id, newSerie));}
 
-    @PostMapping("/eliminarserie/{Id}")
+    @DeleteMapping("/eliminarserie/{Id}")
     public ResponseEntity<String> eliminarSerie(@Valid @PathVariable Long Id, @RequestBody String noSerie) {
         return ResponseEntity.ok(gatitoService.eliminarSerie(Id, noSerie));}
 
@@ -68,6 +68,6 @@ public class GatitoController {
     public ResponseEntity<String> agregarCancion(@Valid @PathVariable Long Id, @RequestBody String newCancion) {
         return ResponseEntity.ok(gatitoService.agregarCancion(Id, newCancion));}
 
-    @PostMapping("/eliminarcancion/{Id}")
+    @DeleteMapping("/eliminarcancion/{Id}")
     public ResponseEntity<String> eliminarCancion(@Valid @PathVariable Long Id, @RequestBody String noCancion) {
         return ResponseEntity.ok(gatitoService.eliminarCancion(Id, noCancion));}}
