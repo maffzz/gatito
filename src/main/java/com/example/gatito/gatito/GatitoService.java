@@ -76,6 +76,8 @@ public class GatitoService {
     public String eliminarSerie(Long id, String noSerie) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
+        if (!gatito.getSeriesfav().contains(noSerie)) {
+            throw new NotFoundException("¡! la serie '" + noSerie + "' no existe en la lista de este gatito");}
         gatito.getSeriesfav().remove(noSerie);
         gatitoRepository.save(gatito);
         return "serie eliminada para el gatito con id " + id + " exitosamente :3";}
@@ -90,6 +92,8 @@ public class GatitoService {
     public String eliminarCancion(Long id, String noCancion) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
+        if (!gatito.getCancionesfav().contains(noCancion)) {
+            throw new NotFoundException("¡! la canción '" + noCancion + "' no existe en la lista de este gatito");}
         gatito.getCancionesfav().remove(noCancion);
         gatitoRepository.save(gatito);
         return "cancion eliminada para el gatito con id " + id + " exitosamente :3";}}
