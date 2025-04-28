@@ -1,6 +1,7 @@
 
 package com.example.gatito.gatito;
 
+import com.example.gatito.error.ConflictException;
 import com.example.gatito.error.NotFoundException;
 import com.example.gatito.gatito.dto.CreateGatitoDTO;
 import com.example.gatito.gatito.dto.UpdateGatitoDTO;
@@ -30,7 +31,6 @@ public class GatitoService {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
         gatito.setNombre(dtoActu.getNombre());
-        gatito.setColor(dtoActu.getColor());
         gatitoRepository.save(gatito);
         return "gatito actualizado exitosamente :3";}
 
@@ -66,14 +66,16 @@ public class GatitoService {
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
         return gatito.getCancionesfav();}
 
-    public String agregarSerie(Long id, String newSerie) {
+    public String addSerie(Long id, String newSerie) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
+        if (gatito.getSeriesfav().contains(newSerie)) {
+            throw new ConflictException("¡! la serie '" + newSerie + "' ya existe en la lista de este gatito");}
         gatito.getSeriesfav().add(newSerie);
         gatitoRepository.save(gatito);
         return "serie agregada al gatito con id " + id + " exitosamente ";}
 
-    public String eliminarSerie(Long id, String noSerie) {
+    public String deleteSerie(Long id, String noSerie) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
         if (!gatito.getSeriesfav().contains(noSerie)) {
@@ -82,14 +84,16 @@ public class GatitoService {
         gatitoRepository.save(gatito);
         return "serie eliminada para el gatito con id " + id + " exitosamente :3";}
 
-    public String agregarCancion(Long id, String newCancion) {
+    public String addCancion(Long id, String newCancion) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
+        if (gatito.getCancionesfav().contains(newCancion)) {
+            throw new ConflictException("¡! la canción '" + newCancion + "' ya existe en la lista de este gatito");}
         gatito.getCancionesfav().add(newCancion);
         gatitoRepository.save(gatito);
         return "cancion agregada al gatito con id " + id + " exitosamente :3";}
 
-    public String eliminarCancion(Long id, String noCancion) {
+    public String deleteCancion(Long id, String noCancion) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
         if (!gatito.getCancionesfav().contains(noCancion)) {
