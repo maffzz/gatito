@@ -24,7 +24,7 @@ public class GatitoController {
     public ResponseEntity<String> createGatito(@Valid @RequestBody CreateGatitoDTO dtoNew) {
         return ResponseEntity.ok(gatitoService.createGatito(dtoNew));}
 
-    @PatchMapping("/actualizar/{Id}")
+    @PatchMapping("/cambiarnombre/{Id}")
     public ResponseEntity<String> updateGatito(@Valid @PathVariable Long Id, @Valid @RequestBody UpdateGatitoDTO dtoActu) {
         return ResponseEntity.ok(gatitoService.updateGatito(Id, dtoActu));}
 
@@ -57,17 +57,17 @@ public class GatitoController {
         return ResponseEntity.ok(gatitoService.getCanciones(Id));}
 
     @PostMapping("/agregarserie/{Id}")
-    public ResponseEntity<String> agregarSerie(@Valid @PathVariable Long Id, @RequestBody String newSerie) {
-        return ResponseEntity.ok(gatitoService.agregarSerie(Id, newSerie));}
+    public ResponseEntity<String> addSerie(@Valid @PathVariable Long Id, @Valid @RequestBody String newSerie) {
+        return ResponseEntity.ok(gatitoService.addSerie(Id, newSerie));}
 
     @DeleteMapping("/eliminarserie/{Id}")
-    public ResponseEntity<String> eliminarSerie(@Valid @PathVariable Long Id, @RequestBody String noSerie) {
-        return ResponseEntity.ok(gatitoService.eliminarSerie(Id, noSerie));}
+    public ResponseEntity<String> deleteSerie(@Valid @PathVariable Long Id, @Valid @RequestBody String noSerie) {
+        return ResponseEntity.ok(gatitoService.deleteSerie(Id, noSerie));}
 
     @PostMapping("/agregarcancion/{Id}")
-    public ResponseEntity<String> agregarCancion(@Valid @PathVariable Long Id, @RequestBody String newCancion) {
-        return ResponseEntity.ok(gatitoService.agregarCancion(Id, newCancion));}
+    public ResponseEntity<String> addCancion(@Valid @PathVariable Long Id, @Valid @RequestBody String newCancion) {
+        return ResponseEntity.ok(gatitoService.addCancion(Id, newCancion));}
 
     @DeleteMapping("/eliminarcancion/{Id}")
-    public ResponseEntity<String> eliminarCancion(@Valid @PathVariable Long Id, @RequestBody String noCancion) {
-        return ResponseEntity.ok(gatitoService.eliminarCancion(Id, noCancion));}}
+    public ResponseEntity<String> deleteCancion(@Valid @PathVariable Long Id, @Valid @RequestBody String noCancion) {
+        return ResponseEntity.ok(gatitoService.deleteCancion(Id, noCancion));}}

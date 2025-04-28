@@ -7,6 +7,4 @@ import lombok.Data;
 @Data
 public class UpdateGatitoDTO {
     @NotNull(message = "el nombre del gatito no debe ser nulo")
-    public String nombre;
-    @NotNull(message = "el color del gatito no debe ser nulo")
-    public String color;}
+    public String nombre;}
