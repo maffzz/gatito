@@ -1,7 +1,6 @@
 
 package com.example.gatito.gatito;
 
-import com.example.gatito.error.BadRequestException;
 import com.example.gatito.error.ConflictException;
 import com.example.gatito.error.NotFoundException;
 import com.example.gatito.gatito.dto.CancionGatitoRequest;
