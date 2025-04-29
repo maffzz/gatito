@@ -1,9 +1,12 @@
 
 package com.example.gatito.gatito;
 
+import com.example.gatito.error.BadRequestException;
 import com.example.gatito.error.ConflictException;
 import com.example.gatito.error.NotFoundException;
+import com.example.gatito.gatito.dto.CancionGatitoRequest;
 import com.example.gatito.gatito.dto.CreateGatitoDTO;
+import com.example.gatito.gatito.dto.SerieGatitoRequest;
 import com.example.gatito.gatito.dto.UpdateGatitoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -66,38 +69,38 @@ public class GatitoService {
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
         return gatito.getCancionesfav();}
 
-    public String addSerie(Long id, String newSerie) {
+    public String addSerie(Long id, SerieGatitoRequest newSerie) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
-        if (gatito.getSeriesfav().contains(newSerie)) {
-            throw new ConflictException("¡! la serie '" + newSerie + "' ya existe en la lista de este gatito");}
-        gatito.getSeriesfav().add(newSerie);
+        if (gatito.getSeriesfav().contains(newSerie.getSerie())) {
+            throw new ConflictException("¡! la serie '" + newSerie.getSerie() + "' ya existe en la lista de este gatito");}
+        gatito.getSeriesfav().add(newSerie.getSerie());
         gatitoRepository.save(gatito);
         return "serie agregada al gatito con id " + id + " exitosamente ";}
 
-    public String deleteSerie(Long id, String noSerie) {
+    public String deleteSerie(Long id, SerieGatitoRequest noSerie) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
-        if (!gatito.getSeriesfav().contains(noSerie)) {
-            throw new NotFoundException("¡! la serie '" + noSerie + "' no existe en la lista de este gatito");}
-        gatito.getSeriesfav().remove(noSerie);
+        if (!gatito.getSeriesfav().contains(noSerie.getSerie())) {
+            throw new NotFoundException("¡! la serie '" + noSerie.getSerie() + "' no existe en la lista de este gatito");}
+        gatito.getSeriesfav().remove(noSerie.getSerie());
         gatitoRepository.save(gatito);
         return "serie eliminada para el gatito con id " + id + " exitosamente :3";}
 
-    public String addCancion(Long id, String newCancion) {
+    public String addCancion(Long id, CancionGatitoRequest newCancion) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
-        if (gatito.getCancionesfav().contains(newCancion)) {
-            throw new ConflictException("¡! la canción '" + newCancion + "' ya existe en la lista de este gatito");}
-        gatito.getCancionesfav().add(newCancion);
+        if (gatito.getCancionesfav().contains(newCancion.getCancion())) {
+            throw new ConflictException("¡! la canción '" + newCancion.getCancion() + "' ya existe en la lista de este gatito");}
+        gatito.getCancionesfav().add(newCancion.getCancion());
         gatitoRepository.save(gatito);
         return "cancion agregada al gatito con id " + id + " exitosamente :3";}
 
-    public String deleteCancion(Long id, String noCancion) {
+    public String deleteCancion(Long id, CancionGatitoRequest noCancion) {
         Gatito gatito = gatitoRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("¡! no se encontró al gatito con id " + id));
-        if (!gatito.getCancionesfav().contains(noCancion)) {
-            throw new NotFoundException("¡! la canción '" + noCancion + "' no existe en la lista de este gatito");}
-        gatito.getCancionesfav().remove(noCancion);
+        if (!gatito.getCancionesfav().contains(noCancion.getCancion())) {
+            throw new NotFoundException("¡! la canción '" + noCancion.getCancion() + "' no existe en la lista de este gatito");}
+        gatito.getCancionesfav().remove(noCancion.getCancion());
         gatitoRepository.save(gatito);
         return "cancion eliminada para el gatito con id " + id + " exitosamente :3";}}

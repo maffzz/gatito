@@ -1,7 +1,9 @@
 
 package com.example.gatito.gatito;
 
+import com.example.gatito.gatito.dto.CancionGatitoRequest;
 import com.example.gatito.gatito.dto.CreateGatitoDTO;
+import com.example.gatito.gatito.dto.SerieGatitoRequest;
 import com.example.gatito.gatito.dto.UpdateGatitoDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,17 +59,17 @@ public class GatitoController {
         return ResponseEntity.ok(gatitoService.getCanciones(Id));}
 
     @PostMapping("/agregarserie/{Id}")
-    public ResponseEntity<String> addSerie(@Valid @PathVariable Long Id, @Valid @RequestBody String newSerie) {
+    public ResponseEntity<String> addSerie(@Valid @PathVariable Long Id, @Valid @RequestBody SerieGatitoRequest newSerie) {
         return ResponseEntity.ok(gatitoService.addSerie(Id, newSerie));}
 
     @DeleteMapping("/eliminarserie/{Id}")
-    public ResponseEntity<String> deleteSerie(@Valid @PathVariable Long Id, @Valid @RequestBody String noSerie) {
+    public ResponseEntity<String> deleteSerie(@Valid @PathVariable Long Id, @Valid @RequestBody SerieGatitoRequest noSerie) {
         return ResponseEntity.ok(gatitoService.deleteSerie(Id, noSerie));}
 
     @PostMapping("/agregarcancion/{Id}")
-    public ResponseEntity<String> addCancion(@Valid @PathVariable Long Id, @Valid @RequestBody String newCancion) {
+    public ResponseEntity<String> addCancion(@Valid @PathVariable Long Id, @Valid @RequestBody CancionGatitoRequest newCancion) {
         return ResponseEntity.ok(gatitoService.addCancion(Id, newCancion));}
 
     @DeleteMapping("/eliminarcancion/{Id}")
-    public ResponseEntity<String> deleteCancion(@Valid @PathVariable Long Id, @Valid @RequestBody String noCancion) {
+    public ResponseEntity<String> deleteCancion(@Valid @PathVariable Long Id, @Valid @RequestBody CancionGatitoRequest noCancion) {
         return ResponseEntity.ok(gatitoService.deleteCancion(Id, noCancion));}}
