@@ -1,6 +1,7 @@
 
 package com.example.gatito;
 
+import com.example.gatito.error.BadRequestException;
 import com.example.gatito.error.ConflictException;
 import com.example.gatito.error.ErrorResponse;
 import com.example.gatito.error.NotFoundException;
@@ -31,6 +32,14 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 HttpStatus.CONFLICT.value());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);}
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequest(BadRequestException ex) {
+        ErrorResponse error = new ErrorResponse(
+                "bad request",
+                ex.getMessage(),
+                HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);}
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
